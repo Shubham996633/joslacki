@@ -1,13 +1,63 @@
 "use client";
 
+import { useGetChannels } from "@/app/features/channels/api/use-get-channels";
+import { useCreateChannelModal } from "@/app/features/channels/store/use-create-channel-modal";
 import { useGetWorkspace } from "@/app/features/workspaces/api/use-get-workspace";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { Loader, TriangleAlert } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo } from "react";
 
 const WorkspaceIdPage = () => {
   const workspaceId = useWorkspaceId();
-  const { data } = useGetWorkspace({ id: workspaceId });
+  const { data: workspace, isLoading: workspaceLoading } = useGetWorkspace({
+    id: workspaceId,
+  });
+  const { data: channels, isLoading: channelsLoading } = useGetChannels({
+    workspaceId,
+  });
+  const router = useRouter();
+  const [open, setOpen] = useCreateChannelModal();
+  const channelId = useMemo(() => channels?.[0]?._id, [channels]);
 
-  return <div>Data: {JSON.stringify(data)}</div>;
+  useEffect(() => {
+    if (workspaceLoading || channelsLoading || !workspace) return;
+    if (channelId) {
+      router.push(`/workspace/${workspaceId}/channel/${channelId}`);
+    } else if (!open) {
+      setOpen(true);
+    }
+  }, [
+    workspaceLoading,
+    channelsLoading,
+    workspace,
+    channelId,
+    setOpen,
+    router,
+    workspaceId,
+    open,
+  ]);
+
+  if (workspaceLoading || channelsLoading) {
+    return (
+      <div className="h-full flex-1 flex items-center justify-center flex-col gap-2">
+        <Loader className="animate-spin size-6 text-muted-foreground" />
+      </div>
+    );
+  }
+
+  if (!workspace) {
+    return (
+      <div className="h-full flex-1 flex items-center justify-center flex-col gap-2">
+        <TriangleAlert className="animate-spin size-6 text-muted-foreground" />
+        <span className="text-sm text-muted-foreground">
+          Workspace not found
+        </span>
+      </div>
+    );
+  }
+  return <div></div>;
 };
 
 export default WorkspaceIdPage;
+// 6:46
