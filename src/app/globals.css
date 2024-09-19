@@ -112,6 +112,10 @@ body,
   text-decoration: underline !important;
 }
 
+.ql-renderer {
+  padding: 0 !important;
+}
+
 .ql-editor::before {
   left: 12px !important;
   font-family: "Lato" sans-serif !important;

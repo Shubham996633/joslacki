@@ -1,5 +1,6 @@
 import { GetMessagesReturnType } from "@/app/features/messages/api/use-get-messages";
 import { format, isToday, isYesterday } from "date-fns";
+import { Message } from "./message";
 interface MessageListProps {
   memberName?: string;
   memberImage?: string;
@@ -52,7 +53,7 @@ export const MessageList = ({
               {formatDateLabel(dateKey)}
             </span>
           </div>
-          {messages.map((message, index) => {
+          {messages.map((message) => {
             return (
               <Message
                 key={message._id}
@@ -60,14 +61,19 @@ export const MessageList = ({
                 memberId={message.memberId}
                 authorName={message.user.name}
                 authorImage={message.user.image}
-                reations={message.reactions}
+                reactions={message.reactions}
                 body={message.body}
+                isAuthor={false}
                 image={message.image}
                 updatedAt={message.updatedAt}
                 threadCount={message.threadCount}
                 threadImage={message.threadImage}
                 threadTimeStamp={message.threadTimeStamp}
                 createdAt={message._creationTime}
+                isEditing={false}
+                setEditingId={() => {}}
+                isCompact={false}
+                hideThreadButton={false}
               />
             );
           })}
@@ -76,5 +82,3 @@ export const MessageList = ({
     </div>
   );
 };
-
-// 2:04
