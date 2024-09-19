@@ -90,6 +90,7 @@ export const Message = ({
             >
               {authorName}
             </button>
+            <span>&nbsp;&nbsp;</span>
             <Renderer value={body} />
           </div>
         </div>
