@@ -6,7 +6,7 @@ type ResponseType = string | null;
 
 type Options = {
   onSuccess?: (data: ResponseType) => void;
-  OnError?: (error: Error) => void;
+  onError?: (error: Error) => void;
   onSettled?: () => void;
   throwError?: boolean;
 };
@@ -37,7 +37,7 @@ export const useGenerateUploadUrl = () => {
       } catch (error) {
         setStatus("error");
 
-        Options?.OnError?.(error as Error);
+        Options?.onError?.(error as Error);
         if (Options?.throwError) throw error;
       } finally {
         setStatus("settled");
