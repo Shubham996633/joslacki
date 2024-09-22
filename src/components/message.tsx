@@ -4,6 +4,7 @@ import { useRemoveMessage } from "@/app/features/messages/api/use-remove-message
 import { useUpdateMessage } from "@/app/features/messages/api/use-update-message";
 import { useToggleReaction } from "@/app/features/reactions/api/use-toggle-reaction";
 import { useConfirm } from "@/hooks/use-confirm";
+import { usePanel } from "@/hooks/use-panel";
 import { cn } from "@/lib/utils";
 import { format, isToday, isYesterday } from "date-fns";
 import dynamic from "next/dynamic";
@@ -69,6 +70,8 @@ export const Message = ({
     "Are you sure you want to delete the message? This cannot be undone"
   );
 
+  const { parentMessageId, onOpenMessage, onClose } = usePanel();
+
   const { mutate: updateMessage, isPending: isUpdatingMessage } =
     useUpdateMessage();
 
@@ -100,6 +103,9 @@ export const Message = ({
       {
         onSuccess: () => {
           toast.success("Message deleted");
+          if (parentMessageId === id) {
+            onClose();
+          }
         },
         onError: () => {
           toast.error("Failed to delete message");
@@ -168,7 +174,9 @@ export const Message = ({
               isAuthor={isAuthor}
               isPending={isPending}
               handleEdit={() => setEditingId(id)}
-              handleThread={() => {}}
+              handleThread={() => {
+                onOpenMessage(id);
+              }}
               handleDelete={handleRemove}
               hideThreadButton={hideThreadButton}
               handleReaction={handleReaction}
@@ -181,7 +189,6 @@ export const Message = ({
 
   const avatarFallback = authorName.charAt(0).toUpperCase();
 
-  console.log(authorImage);
   return (
     <>
       <ConfirmDialog />
@@ -195,9 +202,15 @@ export const Message = ({
       >
         <div className="flex items-center gap-2">
           <button>
-            <Avatar>
-              <AvatarImage src={authorImage} />
-              <AvatarFallback>{avatarFallback}</AvatarFallback>
+            <Avatar className="rounded-md size-10 hover:opacity-75 transition">
+              <AvatarImage
+                className="rounded-md"
+                alt={authorName}
+                src={authorImage}
+              />
+              <AvatarFallback className="rounded-md bg-sky-500 text-white">
+                {avatarFallback}
+              </AvatarFallback>
             </Avatar>
           </button>
           {isEditing ? (
@@ -239,7 +252,9 @@ export const Message = ({
               isAuthor={isAuthor}
               isPending={isPending}
               handleEdit={() => setEditingId(id)}
-              handleThread={() => {}}
+              handleThread={() => {
+                onOpenMessage(id);
+              }}
               handleDelete={handleRemove}
               hideThreadButton={hideThreadButton}
               handleReaction={handleReaction}
