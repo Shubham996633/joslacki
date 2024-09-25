@@ -49,7 +49,7 @@ export const InviteModal = ({
         onSuccess: () => {
           toast.success("Invite code regenerated");
         },
-        OnError: () => {
+        onError: () => {
           toast.error("Failed to regenerate invite code");
         },
       }

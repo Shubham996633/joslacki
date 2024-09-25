@@ -55,7 +55,7 @@ export const PreferencesModal = ({
           setOpen(false);
           router.replace("/");
         },
-        OnError: () => {
+        onError: () => {
           toast.error("Failed to remove workspace");
         },
       }
@@ -74,7 +74,7 @@ export const PreferencesModal = ({
           toast.success("Workspace updated");
           setOpen(false);
         },
-        OnError: () => {
+        onError: () => {
           toast.error("Failed to update workspace");
         },
       }

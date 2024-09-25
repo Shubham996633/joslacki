@@ -57,7 +57,7 @@ export const Header = ({ title }: HeaderProps) => {
           toast.success("Channel updated");
           setEditOpen(false);
         },
-        OnError: () => {
+        onError: () => {
           toast.error("Failed to update channel");
         },
       }
@@ -75,7 +75,7 @@ export const Header = ({ title }: HeaderProps) => {
           toast.success("Channel deleted");
           router.push(`/workspace/${workspaceId}`);
         },
-        OnError: () => {
+        onError: () => {
           toast.error("Failed to delete channel");
         },
       }

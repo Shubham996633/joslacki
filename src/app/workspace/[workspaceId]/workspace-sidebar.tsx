@@ -4,6 +4,7 @@ import { useCurrentMember } from "@/app/features/members/use-current-member";
 import { useGetMembers } from "@/app/features/members/use-get-members";
 import { useGetWorkspace } from "@/app/features/workspaces/api/use-get-workspace";
 import { useChannelId } from "@/hooks/use-channel-id";
+import { useMemberId } from "@/hooks/use-member-id";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import {
   AlertTriangle,
@@ -18,6 +19,7 @@ import { WorkspaceHeader } from "./workspace-header";
 import { WorkspaceSection } from "./workspace-section";
 
 export const WorkspaceSidebar = () => {
+  const memberId = useMemberId();
   const workspaceId = useWorkspaceId();
   const channelId = useChannelId();
   const { data: member, isLoading: memberLoading } = useCurrentMember({
@@ -95,6 +97,7 @@ export const WorkspaceSidebar = () => {
             id={item._id}
             label={item.user.name}
             image={item.user.image}
+            variant={item._id === memberId ? "active" : "default"}
           />
         ))}
       </WorkspaceSection>
