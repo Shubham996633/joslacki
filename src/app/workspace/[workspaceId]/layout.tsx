@@ -45,12 +45,10 @@ const WorkspaceIdLayout = ({ children }: WorkspaceIdLayoutProps) => {
               <ResizableHandle withHandle />
               <ResizablePanel minSize={20} defaultSize={29}>
                 {parentMessageId ? (
-                  <div>
-                    <Thread
-                      messageId={parentMessageId as Id<"messages">}
-                      onClose={onClose}
-                    />
-                  </div>
+                  <Thread
+                    messageId={parentMessageId as Id<"messages">}
+                    onClose={onClose}
+                  />
                 ) : (
                   <div className="flex h-full items-center justify-center">
                     <Loader className="size-5 animate-spin text-muted-foreground" />

@@ -23,7 +23,7 @@ export const create = mutation({
     image: v.optional(v.id("_storage")),
     workspaceId: v.id("workspaces"),
     channelId: v.optional(v.id("channels")),
-    conversationaId: v.optional(v.id("conversations")),
+    conversationId: v.optional(v.id("conversations")),
     parentMessageId: v.optional(v.id("messages")),
   },
   handler: async (ctx, args) => {
@@ -37,9 +37,9 @@ export const create = mutation({
       throw new Error("Unauthorized");
     }
 
-    let _conversationId = args.conversationaId;
+    let _conversationId = args.conversationId;
 
-    if (!args.conversationaId && !args.channelId && args.parentMessageId) {
+    if (!args.conversationId && !args.channelId && args.parentMessageId) {
       const parentMessage = await ctx.db.get(args.parentMessageId);
 
       if (!parentMessage) {

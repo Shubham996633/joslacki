@@ -162,13 +162,14 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
     );
   }
   return (
-    <div className="h-full flex flex-col">
-      <div className="flex justify-between items-center px-4 h-[49px] border-b">
+    <div className="flex flex-col h-full">
+      <div className="flex overflow-hidden justify-between items-center px-4 h-[49px] border-b">
         <p className="text-lg font-bold">Thread</p>
         <Button onClick={onClose} size={"iconSm"} variant={"ghost"}>
           <XIcon className="size-5 stroke-[1.5]" />
         </Button>
       </div>
+
       <div className="flex-1 flex flex-col-reverse pb-4 overflow-y-auto messages-scrollbar">
         {Object.entries(groupedMessages || {}).map(([dateKey, messages]) => (
           <div key={dateKey}>
@@ -206,13 +207,11 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
                   isEditing={editingId === message._id}
                   setEditingId={setEditingId}
                   isCompact={isCompact}
-                  hideThreadButton
                 />
               );
             })}
           </div>
         ))}
-
         <div
           className="h-1"
           ref={(el) => {
@@ -254,7 +253,8 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
           setEditingId={setEditingId}
         />
       </div>
-      <div className="px-4">
+
+      <div className="px-5 w-full">
         <Editor
           onSubmit={handleSubmit}
           disabled={isPending}
@@ -266,5 +266,3 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
     </div>
   );
 };
-
-// 4:33
