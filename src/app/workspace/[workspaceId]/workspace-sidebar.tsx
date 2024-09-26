@@ -1,7 +1,7 @@
 import { useGetChannels } from "@/app/features/channels/api/use-get-channels";
 import { useCreateChannelModal } from "@/app/features/channels/store/use-create-channel-modal";
-import { useCurrentMember } from "@/app/features/members/use-current-member";
-import { useGetMembers } from "@/app/features/members/use-get-members";
+import { useCurrentMember } from "@/app/features/members/api/use-current-member";
+import { useGetMembers } from "@/app/features/members/api/use-get-members";
 import { useGetWorkspace } from "@/app/features/workspaces/api/use-get-workspace";
 import { useChannelId } from "@/hooks/use-channel-id";
 import { useMemberId } from "@/hooks/use-member-id";

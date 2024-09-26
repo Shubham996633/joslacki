@@ -9,7 +9,7 @@ import Quill from "quill";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { Id } from "../../../../../convex/_generated/dataModel";
-import { useCurrentMember } from "../../members/use-current-member";
+import { useCurrentMember } from "../../members/api/use-current-member";
 import { useGenerateUploadUrl } from "../../upload/api/use-generate-upload-url";
 import { useCreateMessage } from "../api/use-create-message";
 import { useGetMessage } from "../api/use-get-message";
@@ -201,6 +201,7 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
                   image={message.image}
                   updatedAt={message.updatedAt}
                   threadCount={message.threadCount}
+                  threadName={message.threadName}
                   threadImage={message.threadImage}
                   threadTimeStamp={message.threadTimeStamp}
                   createdAt={message._creationTime}

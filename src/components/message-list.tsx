@@ -1,4 +1,4 @@
-import { useCurrentMember } from "@/app/features/members/use-current-member";
+import { useCurrentMember } from "@/app/features/members/api/use-current-member";
 import { GetMessagesReturnType } from "@/app/features/messages/api/use-get-messages";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { differenceInMinutes, format, isToday, isYesterday } from "date-fns";
@@ -94,6 +94,7 @@ export const MessageList = ({
                 createdAt={message._creationTime}
                 isEditing={editingId === message._id}
                 setEditingId={setEditingId}
+                threadName={message.threadName}
                 isCompact={isCompact}
                 hideThreadButton={variant === "thread"}
               />

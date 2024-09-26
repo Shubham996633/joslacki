@@ -2,7 +2,7 @@
 
 import { useGetChannels } from "@/app/features/channels/api/use-get-channels";
 import { useCreateChannelModal } from "@/app/features/channels/store/use-create-channel-modal";
-import { useCurrentMember } from "@/app/features/members/use-current-member";
+import { useCurrentMember } from "@/app/features/members/api/use-current-member";
 import { useGetWorkspace } from "@/app/features/workspaces/api/use-get-workspace";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { Loader, TriangleAlert } from "lucide-react";

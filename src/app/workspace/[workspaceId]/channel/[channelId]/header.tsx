@@ -1,6 +1,6 @@
 import { useRemoveChannel } from "@/app/features/channels/api/use-remove-channel";
 import { useUpdateChannel } from "@/app/features/channels/api/use-update-channel";
-import { useCurrentMember } from "@/app/features/members/use-current-member";
+import { useCurrentMember } from "@/app/features/members/api/use-current-member";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
