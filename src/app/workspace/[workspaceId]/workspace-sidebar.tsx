@@ -13,12 +13,14 @@ import {
   MessageSquareText,
   SendHorizonal,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { SidebarItem } from "./sidebar-item";
 import { UserItem } from "./user-item";
 import { WorkspaceHeader } from "./workspace-header";
 import { WorkspaceSection } from "./workspace-section";
 
 export const WorkspaceSidebar = () => {
+  const router = useRouter();
   const memberId = useMemberId();
   const workspaceId = useWorkspaceId();
   const channelId = useChannelId();
@@ -35,6 +37,11 @@ export const WorkspaceSidebar = () => {
   const { data: members } = useGetMembers({
     workspaceId,
   });
+
+  const handleNewChat = () => {
+    const firstMember = members?.[1];
+    router.replace(`/workspace/${workspaceId}/member/${firstMember?._id}`);
+  };
 
   const [_open, setOpen] = useCreateChannelModal();
 
@@ -62,8 +69,8 @@ export const WorkspaceSidebar = () => {
         isAdmin={member.role === "admin"}
       />
       <div className="flex flex-col px-2 mt-3">
-        <SidebarItem label="Threads" icon={MessageSquareText} id="threads" />
-        <SidebarItem label="Drafts & Sent" icon={SendHorizonal} id="drafts" />
+        <SidebarItem label="Threads" icon={MessageSquareText} />
+        <SidebarItem label="Drafts & Sent" icon={SendHorizonal} />
       </div>
       <WorkspaceSection
         label="Channels"
@@ -89,7 +96,7 @@ export const WorkspaceSidebar = () => {
       <WorkspaceSection
         label="Direct Messages"
         hint="New direct message"
-        onNew={() => {}}
+        onNew={handleNewChat}
       >
         {members?.map((item) => (
           <UserItem

@@ -22,7 +22,7 @@ const sidebarItemvariants = cva(
 );
 interface SidebarItemProps {
   label: string;
-  id: string;
+  id?: string;
   icon: LucideIcon | IconType;
   variant?: VariantProps<typeof sidebarItemvariants>["variant"];
 }
@@ -41,7 +41,9 @@ export const SidebarItem = ({
       size={"sm"}
       className={cn(sidebarItemvariants({ variant: variant }))}
     >
-      <Link href={`/workspace/${workspaceId}/channel/${id}`}>
+      <Link
+        href={`${id ? `/workspace/${workspaceId}/channel/${id}` : `/workspace/${workspaceId}`}`}
+      >
         <Icon className="size-3.5 mr-1 shrink-0" />
         <span className="text-sm truncate">{label}</span>
       </Link>
