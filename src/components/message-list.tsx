@@ -1,4 +1,4 @@
-import { useCurrentMember } from "@/app/features/members/use-current-member";
+import { useCurrentMember } from "@/app/features/members/api/use-current-member";
 import { GetMessagesReturnType } from "@/app/features/messages/api/use-get-messages";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { differenceInMinutes, format, isToday, isYesterday } from "date-fns";

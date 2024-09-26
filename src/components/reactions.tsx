@@ -1,4 +1,4 @@
-import { useCurrentMember } from "@/app/features/members/use-current-member";
+import { useCurrentMember } from "@/app/features/members/api/use-current-member";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { cn } from "@/lib/utils";
 import { MdOutlineAddReaction } from "react-icons/md";
