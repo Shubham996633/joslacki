@@ -11,6 +11,7 @@ import dynamic from "next/dynamic";
 import { toast } from "sonner";
 import { Hint } from "./hint";
 import { Reactions } from "./reactions";
+import { ThreadBar } from "./thread-bar";
 import { Thumbnail } from "./thumbnail";
 import { Toolbar } from "./toolbar";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -40,6 +41,7 @@ interface MessageProps {
   threadCount?: number;
   threadImage?: string;
   threadTimeStamp?: number;
+  threadName?: string;
 }
 
 const formatFullTime = (date: Date) => {
@@ -64,13 +66,14 @@ export const Message = ({
   threadCount,
   threadImage,
   threadTimeStamp,
+  threadName,
 }: MessageProps) => {
   const [ConfirmDialog, confirm] = useConfirm(
     "Delete message",
     "Are you sure you want to delete the message? This cannot be undone"
   );
 
-  const { parentMessageId, onOpenMessage, onClose } = usePanel();
+  const { parentMessageId, onOpenMessage, onOpenProfile, onClose } = usePanel();
 
   const { mutate: updateMessage, isPending: isUpdatingMessage } =
     useUpdateMessage();
@@ -92,7 +95,7 @@ export const Message = ({
     );
   };
 
-  const isPending = isUpdatingMessage;
+  const isPending = isUpdatingMessage || isTogglingReaction;
 
   const handleRemove = async () => {
     const ok = await confirm();
@@ -166,6 +169,15 @@ export const Message = ({
                   <span className="text-xs text-muted-foreground">edited</span>
                 ) : null}
                 <Reactions data={reactions} onChange={handleReaction} />
+                <ThreadBar
+                  count={threadCount}
+                  image={threadImage}
+                  name={threadName}
+                  timeStamp={threadTimeStamp}
+                  onClick={() => {
+                    onOpenMessage(id);
+                  }}
+                />
               </div>
             )}
           </div>
@@ -201,7 +213,11 @@ export const Message = ({
         )}
       >
         <div className="flex items-center gap-2">
-          <button>
+          <button
+            onClick={() => {
+              onOpenProfile(memberId);
+            }}
+          >
             <Avatar className="rounded-md size-10 hover:opacity-75 transition">
               <AvatarImage
                 className="rounded-md"
@@ -227,7 +243,9 @@ export const Message = ({
             <div className="flex flex-col w-full  overflow-hidden">
               <div className="text-sm">
                 <button
-                  onClick={() => {}}
+                  onClick={() => {
+                    onOpenProfile(memberId);
+                  }}
                   className="font-bold text-primary hover:underline"
                 >
                   {authorName}
@@ -244,6 +262,15 @@ export const Message = ({
                   <span className="text-xs text-muted-foreground">edited</span>
                 ) : null}
                 <Reactions data={reactions} onChange={handleReaction} />
+                <ThreadBar
+                  count={threadCount}
+                  image={threadImage}
+                  name={threadName}
+                  timeStamp={threadTimeStamp}
+                  onClick={() => {
+                    onOpenMessage(id);
+                  }}
+                />
               </div>
             </div>
           )}

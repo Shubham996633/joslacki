@@ -1,4 +1,5 @@
 "use client";
+import { Profile } from "@/app/features/members/components/profile";
 import { Thread } from "@/app/features/messages/components/thread";
 import {
   ResizableHandle,
@@ -18,10 +19,9 @@ interface WorkspaceIdLayoutProps {
 }
 
 const WorkspaceIdLayout = ({ children }: WorkspaceIdLayoutProps) => {
-  const { parentMessageId, onClose } = usePanel();
+  const { parentMessageId, profileMemberId, onClose } = usePanel();
 
-  const showPanel = !!parentMessageId;
-  console.log("showPanel", showPanel);
+  const showPanel = !!parentMessageId || !!profileMemberId;
   return (
     <div className="h-full">
       <Toolbar />
@@ -47,6 +47,11 @@ const WorkspaceIdLayout = ({ children }: WorkspaceIdLayoutProps) => {
                 {parentMessageId ? (
                   <Thread
                     messageId={parentMessageId as Id<"messages">}
+                    onClose={onClose}
+                  />
+                ) : profileMemberId ? (
+                  <Profile
+                    memberId={profileMemberId as Id<"members">}
                     onClose={onClose}
                   />
                 ) : (

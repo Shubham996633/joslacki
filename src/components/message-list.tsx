@@ -94,6 +94,7 @@ export const MessageList = ({
                 createdAt={message._creationTime}
                 isEditing={editingId === message._id}
                 setEditingId={setEditingId}
+                threadName={message.threadName}
                 isCompact={isCompact}
                 hideThreadButton={variant === "thread"}
               />
